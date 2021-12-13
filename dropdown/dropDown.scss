@@ -1,0 +1,285 @@
+@import "./skinning";
+
+@keyframes showFallback {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin applyShowFallBackAnim() {
+  opacity: 0;
+  animation-name: showFallback;
+  animation-duration: .2s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+@mixin moduleFieldLabel() {
+  font-weight: 500;
+  font-size: rem(12);
+  line-height: rem(20);
+  color: var(--sc-secondary-text-color);
+  padding-left: rem(3);
+  margin-bottom: rem(4);
+  letter-spacing: 0;
+}
+.dropdown {
+  position: relative;
+  display: flex;
+  .visible-ctrl {
+    width: 100%;
+  }
+  .selected-holder {
+    display: inline-flex;
+    align-items: center;
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+    .selected-label {
+      font-size: rem(12);
+      line-height: rem(16);
+      font-weight: 900;
+      margin-right: rem(12);
+      color: var(--sc-primary-text-color);
+    }
+    .dropdown-icon {
+      color: var(--sc-secondary-text-color);
+      transition-duration: .2s;
+      will-change: transform;
+      transform: rotate(0deg) translateY(0);
+      transform-origin: center;
+      font-weight: 900;
+    }
+    &.opened {
+      .dropdown-icon {
+        transform: rotate(180deg) translateY(2px);
+      }
+    }
+  }
+  .fallback-content {
+    position: absolute;
+    top: calc(100% + 6px);
+    min-width: 100%;
+    background: #fff;
+    left: 0;
+    z-index: 333;
+    box-shadow: 0 rem(4) rem(16) rgba(0, 0, 0, 0.12);
+    border-radius: rem(5);
+    text-align: left;
+    padding: rem(8) 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: rem(320);
+    @include applyShowFallBackAnim();
+    .fall-item {
+      padding: 0 rem(12);
+      line-height: rem(21);
+      white-space: nowrap;
+      cursor: pointer;
+      font-style: normal;
+      font-weight: 500;
+      font-size: rem(14);
+      color: #606074;
+      &:not(:first-child) {
+        margin-top: rem(8);
+      }
+      &.active, &:hover {
+        color: #000000;
+      }
+    }
+  }
+  // Capitalize
+  &.capitalize {
+    .selected-holder {
+      .selected-label {
+        text-transform: capitalize;
+      }
+    }
+    .fallback-content {
+      .fall-item {
+        text-transform: capitalize;
+      }
+    }
+  }
+  // Uppercase often need with currencies
+  &.uppercase {
+    .selected-holder {
+      .selected-label {
+        text-transform: uppercase;
+      }
+    }
+    .fallback-content {
+      .fall-item {
+        text-transform: uppercase;
+      }
+    }
+  }
+  // With accent colored border
+  &.type-default {
+    .selected-holder {
+      padding: 0 rem(10);
+      border: rem(1) solid var(--sc-stroke-color);
+      border-radius: rem(5);
+      height: rem(32);
+      width: 100%;
+      background-color: var(--sc-theme-color);
+      .selected-label {
+        padding-right: rem(8);
+        font-weight: 500;
+        letter-spacing: 0;
+      }
+    }
+    .field-label {
+      @include moduleFieldLabel();
+    }
+    .dropdown-icon {
+      color: var(--sc-secondary-text-color);
+      position: absolute;
+      right: rem(12);
+      bottom: rem(10);
+      font-size: rem(12);
+    }
+  }
+  // Type a un bordered, but background dropdown
+  &.type-a {
+    background-color: var(--sc-background-color);
+    border-radius: rem(5);
+    height: rem(32);
+    .selected-holder {
+      height: 100%;
+      padding: 0 rem(10);
+      .selected-label {
+        font-weight: 500;
+        font-size: rem(14);
+        line-height: rem(24);
+        letter-spacing: rem(0.3);
+        color: var(--sc-primary-text-color);
+      }
+    }
+  }
+  &.type-b {
+    .selected-holder {
+      padding: 0 rem(10);
+      border: rem(1) solid var(--sc-border-color);
+      border-radius: rem(5);
+      height: rem(40);
+      width: 100%;
+      .selected-label {
+        padding-right: rem(8);
+        font-weight: 500;
+      }
+    }
+    .field-label {
+      @include moduleFieldLabel();
+    }
+    .dropdown-icon {
+      color: var(--sc-secondary-text-color);
+      position: absolute;
+      right: rem(12);
+      bottom: rem(14);
+      font-size: rem(12);
+    }
+  }
+  &.type-c {
+
+    border-radius: rem(5) 0 0 rem(5);
+    background-color: var(--sc-background-color);
+    border: rem(1) solid var(--sc-border-color);
+    width: rem(40);
+    .selected-holder {
+      height: rem(28);
+      padding: 0 rem(7);
+      position: relative;
+      z-index: 33;
+      .selected-label {
+        margin-right: rem(4);
+      }
+      .dropdown-icon {
+        color: var(--sc-primary-text-color);
+        font-size: rem(9);
+        &:before {
+          content: '\e9a0';
+          display: block;
+          transform: rotate(90deg);
+        }
+      }
+    }
+  }
+  &.type-d {
+    .selected-holder {
+      padding: 0 rem(10);
+      border: rem(1) solid var(--sc-border-color);
+      background-color: var(--sc-theme-color);
+      border-radius: rem(5);
+      height: rem(40);
+      width: 100%;
+      &:not(#selected) {
+        .selected-label {
+          color: var(--sc-secondary-text-color);
+        }
+      }
+      .selected-label {
+        padding-right: rem(8);
+      }
+    }
+    .field-label {
+      @include moduleFieldLabel();
+    }
+    .dropdown-icon {
+      color: var(--sc-secondary-text-color);
+      position: absolute;
+      right: rem(12);
+      bottom: rem(12);
+      font-size: rem(12);
+    }
+    &.high {
+      .selected-holder {
+        height: rem(40);
+      }
+    }
+  }
+  &.type-e {
+    .selected-holder {
+      padding: 0 rem(10);
+      border: rem(1) solid var(--sc-border-color);
+      background-color: var(--sc-theme-color);
+      border-radius: rem(4);
+      height: rem(32);
+      width: 100%;
+      &:not(#selected) {
+        .selected-label {
+          color: var(--sc-secondary-text-color);
+        }
+      }
+      .selected-label {
+        padding-right: rem(8);
+      }
+    }
+    .field-label {
+      @include moduleFieldLabel();
+    }
+    .dropdown-icon {
+      color: var(--sc-secondary-text-color);
+      position: absolute;
+      right: rem(12);
+      bottom: rem(12);
+      font-size: rem(12);
+    }
+  }
+  &.required-field {
+    .field-label {
+      &:after {
+        content: ' *';
+      }
+    }
+  }
+  &.drop-up {
+    .fallback-content {
+      bottom: calc(100% + 6px);
+      top: auto;
+    }
+  }
+}

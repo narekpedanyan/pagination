@@ -1,0 +1,85 @@
+@import "./skinning";
+
+@mixin perPageStyles {
+  .items-per-page {
+    display: flex;
+    @content;
+    .dropdown {
+      margin: rem(4) rem(10) 0 rem(10);
+      .selected-holder .selected-label {
+        font-size: rem(14);
+      }
+    }
+  }
+}
+
+.pagination-redesign {
+  width: 100%;
+  display: flex;
+  .pages {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    .prev {
+      height: rem(24);
+      border-left: rem(1) solid var(--sc-border-color);
+      border-right: rem(1) solid var(--sc-border-color);
+      border-radius: rem(5) 0 0 rem(5);
+      &:before {
+        transform: rotate(90deg);
+        font-size: rem(6);
+        display: block;
+      }
+    }
+    .next {
+      height: rem(24);
+      border-right: rem(1) solid var(--sc-border-color);
+      border-radius: 0 rem(5) rem(5) 0;
+      &:before {
+        transform: rotate(-90deg);
+        font-size: rem(6);
+        display: block;
+      }
+    }
+    .page {
+      height: rem(24);
+      border-right: rem(1) solid var(--sc-border-color);
+    }
+
+    > button[type="button"] {
+      border-top: rem(1) solid var(--sc-border-color);
+      border-bottom: rem(1) solid var(--sc-border-color);
+      height: rem(24);
+      min-width: rem(24);
+      color: var(--sc-primary-text-color);
+      cursor: pointer;
+      &.active {
+        background-color: var(--sc-selected-state-color);
+        color: var(--sc-insight-color);
+        pointer-events: none;
+        font-weight: 900;
+      }
+      &[disabled] {
+        opacity: 0.5;
+      }
+    }
+
+  }
+  @include perPageStyles {
+    font-size: rem(14);
+    line-height: rem(24);
+    letter-spacing: rem(0.3);
+    color: var(--sc-secondary-text-color);
+  };
+}
+
+.pagination-top-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: rem(14);
+  line-height: rem(24);
+  letter-spacing: rem(0.3);
+  color: var(--sc-secondary-text-color);
+  @include perPageStyles();
+}
